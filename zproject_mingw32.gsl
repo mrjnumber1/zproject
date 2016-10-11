@@ -14,15 +14,21 @@ register_target ("mingw32", "Mingw32 build system")
 
 .macro target_mingw32
 .directory.create('builds/mingw32')
-.output "builds/mingw32/Makefile.mingw32"
+.output "builds/mingw32/Makefile"
 $(project.GENERATED_WARNING_HEADER:)
 
 CC=gcc
-# replace the following with wherever you have installed libzmq
-PREFIX=c:/mingw/msys/1.0/local
+# replace the following with wherever you have installed my
+PREFIX=C:/git-sdk-32/mingw32
+CORE_PCH=$\(PREFIX)/include/$(project.header).h
+CORE_PCH_GCH = $\(CORE_PCH).gch
 INCDIR=-I$\(PREFIX)/include -I.
 LIBDIR=-L$\(PREFIX)/lib
-CFLAGS=-Wall -Os -g -D$(PROJECT.PREFIX)_EXPORTS $\(INCDIR)
+CFLAGS= -gcc --std=gnu11 -v -Wall -Werror -Wfatal-errors -pedantic -g $\(INCDIR) $\(shell sdl2-config --flags)
+LDFLAGS= $\(shell sdl2-config -- libs) 
+EXE=.exe
+SELFTESTER = $(project.prefix)_selftest$\(EXE)
+MAINGAME = $(project.name)$\(EXE)
 
 OBJS =\
 .for class
@@ -30,19 +36,25 @@ OBJS =\
 .endfor
 
 %.o: ../../src/%.c
-	$\(CC) -c -o $@ $< $\(CFLAGS)
+	$\(CC) $\(CFLAGS) -c -o $@ $< 
 
-all: $(project.libname).dll $(project.prefix)_selftest.exe
+all: $\(CORE_PCH_GCH) $\(MAINGAME) $\(SELFTESTER)
 
-$(project.libname).dll: $\(OBJS)
-	$\(CC) -shared -o $@ $\(OBJS) -Wl,--out-implib,$@.a $\(LIBDIR) -lzmq -lws2_32 -liphlpapi -lrpcrt4
+$\(MAINGAME): $\(OBJS)
+	$\(CC) -$\(LDFLAGS) -o $@ $^ $\(LIBDIR) 
 
-# the test functions are not exported into the DLL
-$(project.prefix)_selftest.exe: $(project.prefix)_selftest.o $\(OBJS)
-	$\(CC) -o $@ $^ $\(LIBDIR) -lzmq -lws2_32 -liphlpapi -lrpcrt4
+pch: $\(CORE_PCH_GCH)
+
+
+$\(CORE_PCH_GCH): 
+	$\(CC) $\(CFLAGS) -x c-header $\(CORE_PCH)
+
+
+$\(SELFTESTER): $(project.prefix)_selftest.o $\(OBJS)
+	$\(CC) $\(LDFLAGS) -o $@ $^ $\(LIBDIR) 
 
 clean:
-	del *.o *.a *.dll *.exe
+	$\(RM) *.o *$\(EXE)
 
 $(project.GENERATED_WARNING_HEADER:)
 .endmacro

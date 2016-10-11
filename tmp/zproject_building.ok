@@ -1,0 +1,223 @@
+autoreconf: Entering directory `.'
+autoreconf: configure.ac: not using Gettext
+autoreconf: running: aclocal -I config --force -I config
+autoreconf: configure.ac: tracing
+autoreconf: running: libtoolize --copy --force
+libtoolize: putting auxiliary files in AC_CONFIG_AUX_DIR, 'config'.
+libtoolize: copying file 'config/ltmain.sh'
+libtoolize: putting macros in AC_CONFIG_MACRO_DIRS, 'config'.
+libtoolize: copying file 'config/libtool.m4'
+libtoolize: copying file 'config/ltoptions.m4'
+libtoolize: copying file 'config/ltsugar.m4'
+libtoolize: copying file 'config/ltversion.m4'
+libtoolize: copying file 'config/lt~obsolete.m4'
+autoreconf: running: /usr/bin/autoconf --include=config --force
+autoreconf: running: /usr/bin/autoheader --include=config --force
+autoreconf: running: automake --add-missing --copy --force-missing
+configure.ac:46: installing 'config/compile'
+configure.ac:15: installing 'config/missing'
+autoreconf: Leaving directory `.'
+configure: loading site script /mingw32/etc/config.site
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... /usr/bin/mkdir -p
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking whether UID '197610' is supported by ustar format... yes
+checking whether GID '197121' is supported by ustar format... yes
+checking how to create a ustar tar archive... gnutar
+checking whether make supports nested variables... (cached) yes
+checking for gcc... gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.exe
+checking for suffix of executables... .exe
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether gcc accepts -g... yes
+checking for gcc option to accept ISO C89... none needed
+checking whether gcc understands -c and -o together... yes
+checking for style of include used by make... GNU
+checking dependency style of gcc... none
+checking for gcc option to accept ISO C99... none needed
+checking build system type... i686-w64-mingw32
+checking host system type... i686-w64-mingw32
+checking for as... as
+checking for dlltool... dlltool
+checking for objdump... objdump
+checking how to print strings... printf
+checking for a sed that does not truncate output... /usr/bin/sed
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for fgrep... /usr/bin/grep -F
+checking for ld used by gcc... C:/git-sdk-32/mingw32/i686-w64-mingw32/bin/ld.exe
+checking if the linker (C:/git-sdk-32/mingw32/i686-w64-mingw32/bin/ld.exe) is GNU ld... yes
+checking for BSD- or MS-compatible name lister (nm)... /mingw32/bin/nm -B
+checking the name lister (/mingw32/bin/nm -B) interface... BSD nm
+checking whether ln -s works... no, using cp -pR
+checking the maximum length of command line arguments... 8192
+checking how to convert i686-w64-mingw32 file names to i686-w64-mingw32 format... func_convert_file_msys_to_w32
+checking how to convert i686-w64-mingw32 file names to toolchain format... func_convert_file_msys_to_w32
+checking for C:/git-sdk-32/mingw32/i686-w64-mingw32/bin/ld.exe option to reload object files... -r
+checking for objdump... (cached) objdump
+checking how to recognize dependent libraries... file_magic ^x86 archive import|^x86 DLL
+checking for dlltool... (cached) dlltool
+checking how to associate runtime and link libraries... func_cygming_dll_for_implib
+checking for ar... ar
+checking for archiver @FILE support... @
+checking for strip... strip
+checking for ranlib... ranlib
+checking command to parse /mingw32/bin/nm -B output from gcc object... ok
+checking for sysroot... no
+checking for a working dd... /usr/bin/dd
+checking how to truncate binary pipes... /usr/bin/dd bs=4096 count=1
+checking for mt... no
+checking if : is a manifest tool... no
+checking how to run the C preprocessor... gcc -E
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking for dlfcn.h... no
+checking for objdir... .libs
+checking if gcc supports -fno-rtti -fno-exceptions... no
+checking for gcc option to produce PIC... -DDLL_EXPORT -DPIC
+checking if gcc PIC flag -DDLL_EXPORT -DPIC works... yes
+checking if gcc static flag -static works... yes
+checking if gcc supports -c -o file.o... yes
+checking if gcc supports -c -o file.o... (cached) yes
+checking whether the gcc linker (C:/git-sdk-32/mingw32/i686-w64-mingw32/bin/ld.exe) supports shared libraries... yes
+checking whether -lc should be explicitly linked in... yes
+checking dynamic linker characteristics... Win32 ld.exe
+checking how to hardcode library paths into programs... immediate
+checking whether stripping libraries is possible... yes
+checking if libtool supports shared libraries... yes
+checking whether to build shared libraries... yes
+checking whether to build static libraries... yes
+checking for a sed that does not truncate output... (cached) /usr/bin/sed
+checking for gawk... (cached) gawk
+checking for pkg-config... /mingw32/bin/pkg-config
+checking pkg-config is at least version 0.9.0... yes
+checking for gsl... yes
+checking for asciidoc... yes
+checking for xmlto... yes
+checking whether to build documentation... yes
+checking whether to install manpages... yes
+checking windows.h usability... yes
+checking windows.h presence... yes
+checking for windows.h... yes
+checking for ANSI C header files... (cached) yes
+checking errno.h usability... yes
+checking errno.h presence... yes
+checking for errno.h... yes
+checking arpa/inet.h usability... no
+checking arpa/inet.h presence... no
+checking for arpa/inet.h... no
+checking netinet/tcp.h usability... no
+checking netinet/tcp.h presence... no
+checking for netinet/tcp.h... no
+checking netinet/in.h usability... no
+checking netinet/in.h presence... no
+checking for netinet/in.h... no
+checking stddef.h usability... yes
+checking stddef.h presence... yes
+checking for stddef.h... yes
+checking for stdlib.h... (cached) yes
+checking for string.h... (cached) yes
+checking sys/socket.h usability... no
+checking sys/socket.h presence... no
+checking for sys/socket.h... no
+checking sys/time.h usability... yes
+checking sys/time.h presence... yes
+checking for sys/time.h... yes
+checking for unistd.h... (cached) yes
+checking limits.h usability... yes
+checking limits.h presence... yes
+checking for limits.h... yes
+checking ifaddrs.h usability... no
+checking ifaddrs.h presence... no
+checking for ifaddrs.h... no
+checking for net/if.h... no
+checking for net/if_media.h... no
+checking for linux/wireless.h... no
+checking for stdbool.h that conforms to C99... yes
+checking for _Bool... yes
+checking for an ANSI C-conforming const... yes
+checking for inline... inline
+checking for size_t... yes
+checking for ssize_t... yes
+checking whether time.h and sys/time.h may both be included... yes
+checking for uint32_t... yes
+checking for working volatile... yes
+checking whether byte ordering is bigendian... no
+checking return type of signal handlers... void
+checking for perror... yes
+checking for gettimeofday... yes
+checking for memset... no
+checking for getifaddrs... no
+configure: Building stable and legacy API + draft API
+checking that generated files are newer than configure... done
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating src/platform.h
+config.status: src/platform.h is unchanged
+config.status: executing depfiles commands
+config.status: executing libtool commands
+
+##########################################################################
+#                                SUMMARY                                 #
+##########################################################################
+
+Package version............... : zproject-1.1.0
+
+C compiler.................... : gcc
+C compiler flags.............. : -g -O2
+Configure date................ : 2016-10-11 00:05
+Build architecture............ : i686-w64-mingw32
+Build docs.................... : yes
+Build host.................... : mrj
+Build user.................... :
+Draft API..................... : yes
+Install dir................... : /mingw32
+Install man pages............. : no
+
+Help:
+Use the Draft API (default = yes):
+--enable-drafts=(yes|no)
+
+Build the docs and install the man pages (default = yes):
+--with-docs=(yes|no) *requires asciidoc and xmlto
+
+##########################################################################
+
+Configure complete! Now procced with:
+    - 'make'               compile the project
+    - 'make check'         run the project's selftest
+    - 'make install'       install the project to /mingw32
+
+Further options are:
+    - 'make callcheck'     run the project's selftest with valgrind to
+                           check for performance leaks
+    - 'make check-verbose' run the project's selftest in verbose mode
+    - 'make code'          generate code from models in src directory
+                           (requires zproject and zproto)
+    - 'make debug'         run the project's selftest under gdb
+    - 'make memcheck'      run the project's selftest with valgrind to
+                           check for memory leaks
+
+make[1]: Entering directory '/c/Users/misterj/projects/zproject'
+make[1]: Nothing to be done for 'all-am'.
+make[1]: Leaving directory '/c/Users/misterj/projects/zproject'
+make[1]: Entering directory '/c/Users/misterj/projects/zproject'
+make[2]: Entering directory '/c/Users/misterj/projects/zproject'
+ /usr/bin/mkdir -p '/mingw32/bin'
+ /usr/bin/install -c zproject.gsl zproject_projects.gsl zproject_class_api.gsl zproject_skeletons.gsl zproject_bench.gsl zproject_class.gsl zproject_git.gsl zproject_valgrind.gsl zproject_android.gsl zproject_autotools.gsl zproject_cmake.gsl zproject_cygwin.gsl zproject_debian.gsl zproject_docker.gsl zproject_gyp.gsl zproject_java.gsl zproject_java_lib.gsl zproject_java_msvc.gsl zproject_mingw32.gsl zproject_nodejs.gsl zproject_nuget.gsl zproject_obs.gsl zproject_python.gsl zproject_python_cffi.gsl zproject_qml.gsl zproject_qt.gsl zproject_redhat.gsl zproject_rpi.gsl zproject_ruby.gsl zproject_travis.gsl zproject_vagrant.gsl zproject_vs2008.gsl zproject_vs20xx.gsl zproject_vs20xx_props.gsl zproject_known_projects.xml mkapi.py fake_cpp '/mingw32/bin'
+make[2]: Leaving directory '/c/Users/misterj/projects/zproject'
+make[1]: Leaving directory '/c/Users/misterj/projects/zproject'

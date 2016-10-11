@@ -497,7 +497,7 @@ function c_method_signature (method)
             if my.method.polymorphic?0
                 arg.c_type = 'void *'
             else
-                arg.c_type = "$(class.c_name)_t *"
+                arg.c_type = "$(class.c_name) *"
             endif
         endnew
     endif

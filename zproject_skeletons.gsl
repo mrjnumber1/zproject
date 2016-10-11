@@ -36,30 +36,30 @@
 
 #include "$(project.prefix)_classes.h"
 
-int main (int argc, char *argv [])
+int main(int argc, char *argv [])
 {
     bool verbose = false;
     int argn;
     for (argn = 1; argn < argc; argn++) {
-        if (streq (argv [argn], "--help")
-        ||  streq (argv [argn], "-h")) {
-            puts ("$(main.name) [options] ...");
-            puts ("  --verbose / -v         verbose test output");
-            puts ("  --help / -h            this information");
+        if (streq(argv [argn], "--help")
+        ||  streq(argv [argn], "-h")) {
+            puts("$(main.name) [options] ...");
+            puts("  --verbose / -v         verbose test output");
+            puts("  --help / -h            this information");
             return 0;
         }
         else
-        if (streq (argv [argn], "--verbose")
-        ||  streq (argv [argn], "-v"))
+        if (streq(argv [argn], "--verbose")
+        ||  streq(argv [argn], "-v"))
             verbose = true;
         else {
-            printf ("Unknown option: %s\\n", argv [argn]);
+            printf("Unknown option: %s\\n", argv [argn]);
             return 1;
         }
     }
     //  Insert main code here
     if (verbose)
-        zsys_info ("$(main.name:c) - $(string.trim (main.?''):no,left)");
+        printf("$(main.name:c) - $(string.trim (main.?''):no,left)");
     return 0;
 }
 .   close
@@ -338,22 +338,22 @@ extern "C" {
 
 .   endif
 .   if class.scope = "private"
-typedef struct _$(class.c_name)_t $(class.c_name)_t;
+typedef struct _$(class.c_name) $(class.c_name);
 
 .   endif
 //  @interface
 //  Create a new $(class.c_name)
-$(PROJECT.PREFIX)_EXPORT $(class.c_name)_t *
-    $(class.c_name)_new (void);
+$(PROJECT.PREFIX)_EXPORT $(class.c_name) *
+    $(class.c_name)_new(void);
 
 //  Destroy the $(class.c_name)
 $(PROJECT.PREFIX)_EXPORT void
-    $(class.c_name)_destroy ($(class.c_name)_t **self_p);
+    $(class.c_name)_destroy($(class.c_name) **self_p);
 
 .   if class.selftest
 //  Self test of this class
 $(PROJECT.PREFIX)_EXPORT void
-    $(class.c_name)_test (bool verbose);
+    $(class.c_name)_test(bool verbose);
 .   endif
 
 //  @end
@@ -391,7 +391,7 @@ $(PROJECT.PREFIX)_EXPORT void
 
 //  Structure of our class
 
-struct _$(class.c_name)_t {
+struct _$(class.c_name) {
     int filler;     //  Declare class properties here
 };
 
@@ -399,11 +399,11 @@ struct _$(class.c_name)_t {
 //  --------------------------------------------------------------------------
 //  Create a new $(class.c_name)
 
-$(class.c_name)_t *
-$(class.c_name)_new (void)
+$(class.c_name) *
+$(class.c_name)_new(void)
 {
-    $(class.c_name)_t *self = ($(class.c_name)_t *) zmalloc (sizeof ($(class.c_name)_t));
-    assert (self);
+    $(class.c_name) *self = ($(class.c_name) *) jmalloc(sizeof ($(class.c_name)));
+    assert(self);
     //  Initialize class properties here
     return self;
 }
@@ -413,14 +413,14 @@ $(class.c_name)_new (void)
 //  Destroy the $(class.c_name)
 
 void
-$(class.c_name)_destroy ($(class.c_name)_t **self_p)
+$(class.c_name)_destroy($(class.c_name) **self_p)
 {
-    assert (self_p);
+    assert(self_p);
     if (*self_p) {
-        $(class.c_name)_t *self = *self_p;
+        $(class.c_name) *self = *self_p;
         //  Free class properties here
         //  Free object itself
-        free (self);
+        free(self);
         *self_p = NULL;
     }
 }
@@ -432,15 +432,15 @@ $(class.c_name)_destroy ($(class.c_name)_t **self_p)
 void
 $(class.c_name)_test (bool verbose)
 {
-    printf (" * $(class.c_name): ");
+    puts(" * $(class.c_name): ");
 
     //  @selftest
     //  Simple create/destroy test
-    $(class.c_name)_t *self = $(class.c_name)_new ();
+    $(class.c_name) *self = $(class.c_name)_new();
     assert (self);
-    $(class.c_name)_destroy (&self);
+    $(class.c_name)_destroy(&self);
     //  @end
-    printf ("OK\\n");
+    puts("OK\\n");
 }
 .   endif
 .   close
