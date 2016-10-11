@@ -484,5 +484,5 @@ if count (class)
             resolve_c_class (class)
         endif
     endfor
-#    generate_project_api ()
+    generate_project_api ()
 endif
