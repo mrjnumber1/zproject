@@ -18,9 +18,8 @@ register_target ("mingw32", "Mingw32 build system")
 $(project.GENERATED_WARNING_HEADER:)
 
 CC=gcc
-# replace the following with wherever you have installed my
-PREFIX=C:/git-sdk-32/mingw32
-CORE_PCH=$\(PREFIX)/include/$(project.header).h
+PREFIX=../..
+CORE_PCH=$\(PREFIX)/include/$(project.header)
 CORE_PCH_GCH = $\(CORE_PCH).gch
 INCDIR=-I$\(PREFIX)/include -I.
 LIBDIR=-L$\(PREFIX)/lib
@@ -35,7 +34,7 @@ OBJS =\
  $(name:c).o\
 .endfor
 
-%.o: ../../src/%.c
+%.o: $\(PREFIX)/src/%.c
 	$\(CC) $\(CFLAGS) -c -o $@ $< 
 
 all: $\(CORE_PCH_GCH) $\(MAINGAME) $\(SELFTESTER)

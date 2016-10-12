@@ -141,9 +141,6 @@ function resolve_c_container (container)
         my.c_type = "va_list"
     elsif my.type = "socket"
         my.c_type = "SOCKET"
-    elsif my.type = "zmq_pollitem"
-        my.c_type = "zmq_pollitem_t"
-        my.stars = "*"
     elsif my.type = "string"
         my.c_type = "char"
         my.stars = "*"
@@ -559,21 +556,6 @@ for project.main
     skeleton_main_source ()
 endfor
 
-for project.actor
-    if scope = "private"
-        actor.header = "src/$(actor.name:c).h"
-    else
-        actor.header = "include/$(actor.name:c).h"
-    endif
-    if project.use_cxx
-        actor.source = "src/$(actor.name:c).cc"
-    else
-        actor.source = "src/$(actor.name:c).c"
-    endif
-    skeleton_actor_header ()
-    skeleton_actor_source ()
-endfor
-
 for project.class
     if scope = "private"
         class.header = "src/$(class.name:c).h"
@@ -592,7 +574,10 @@ for project.class
         # If there is no API model for this class,
         # all we can do is resolve the name and state
         class.c_name = "$(class.name:c)"
-        set_state (class, "draft")
+        if defined (class.parent)
+            class.parent = "$(class.parent:c)"
+        endif
+        set_state (class, "stable")
     endif
 endfor
 
