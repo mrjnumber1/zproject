@@ -150,7 +150,7 @@ void
 struct _$(class.c_name) {
 .if defined(class.parent)
 	union {
-		$(project.prefix)_$(class.parent)_base* $(class.parent);
+		$(class.parent_type)* $(class.parent);
 	};
 .endif
     int filler;     //  Declare class properties here
@@ -167,7 +167,7 @@ $(class.c_name)_new(void)
     assert(self);
     //  Initialize class properties here
 .if defined(class.parent)
-	$(project.prefix)_$(class.parent)_base* parent = $(project.prefix)_$(class.parent)_base_new();
+	$(class.parent_type)* parent = $(class.parent_type)_new();
 	
 	assert(parent)
 	
@@ -189,7 +189,7 @@ $(class.c_name)_destroy($(class.c_name) **self_p)
         //  Free class properties here
 .if defined(class.parent)
 
-	$(project.prefix)_$(class.parent)_base_destroy(&(self->$(class.parent)));	
+	$(class.parent_type)_destroy(&(self->$(class.parent)));	
 	self->$(class.parent) = NULL;
 .endif
 

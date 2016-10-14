@@ -10,41 +10,6 @@
 #   License, v. 2.0. If a copy of the MPL was not distributed with this
 #   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-# Resolve filename for each class API (undefined if the file is not found)
-for project.class
-    class.private ?= "0"
-    if defined (class.api)
-        if !file.exists (class.api)
-            echo "Could not read API file '$(class.api)' for '$(class.name)'"
-            class.api = # undefined
-        endif
-    else
-        if file.exists ("api/$(class.name:c).api")
-            class.api = "api/$(class.name:c).api"
-        elsif file.exists ("api/$(class.name:c).xml")
-            class.api = "api/$(class.name:c).xml"
-        endif
-    endif
-endfor
-
-# Replace each class item with the class model from its API file (if any)
-for project.class where defined (class.api)
-    new_class = XML.load_file (class.api)?
-    if !defined (new_class)
-        echo "Error loading api file: $(class.api): $(xml.error?)"
-        class.api = # undefined
-    else
-        new_class.api = class.api
-        new_class.api_dir = directory.resolve ('api/')
-        new_class.private = class.private
-        new_class.scope = class.scope
-        new_class.state = class.state? new_class.state?
-        new_class.selftest ?= 1
-        move new_class after class
-        delete class
-    endif
-endfor
-
 #
 # Set the API state and draft attribute of an element
 #
@@ -573,10 +538,10 @@ for project.class
     else
         # If there is no API model for this class,
         # all we can do is resolve the name and state
-        class.c_name = "$(class.name:c)"
-        if defined (class.parent)
-            class.parent = "$(class.parent:c)"
-        endif
+        #class.c_name = "$(class.name:c)"
+        #if defined (class.parent)
+        #    class.parent = "$(class.parent:c)"
+        #endif
         set_state (class, "stable")
     endif
 endfor

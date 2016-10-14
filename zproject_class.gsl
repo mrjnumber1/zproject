@@ -102,7 +102,7 @@ typedef struct _$(class.c_name) $(class.c_name);
 #include "$(header.name).h"
 .endfor
 .for class where scope = "public" & class.c_name <> "$(project.name)" & !draft
-#include "$(class.c_name).h"
+#include "$(class.path).h"
 .endfor
 
 #endif
@@ -279,7 +279,7 @@ $(project.GENERATED_WARNING_HEADER:)
 
 //  Internal API
 .for class where scope = "private"
-#include "$(class.c_name).h"
+#include "$(class.path).h"
 .endfor
 .for header where scope = "private"
 #include "$(header.name).h"
@@ -334,12 +334,6 @@ $(c_method_signature (destructor):)\
 .       else
 ;
 .       endif
-
-.   endfor
-.   for class.actor where draft = my.draft
-//  $(actor.description:no,block)
-void
-    $(actor.name:c) (zsock_t *pipe, void *args);
 
 .   endfor
 .   for class.method where draft = my.draft

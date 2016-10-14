@@ -72,40 +72,27 @@ function resolve_scope (item)
     endif
 endfunction
 
-for use
-    resolve_project_dependency (use)
-endfor
+
 
 for main
-    resolve_scope (main)
-endfor
-
-for actor
-    actor.selftest ?= 1
-    new class to project
-        class.name = actor.name
-        class.private = actor.private?
-        class.description = actor.description?
-        class.selftest = actor.selftest
-    endnew
-    resolve_scope (actor)
+    resolve_scope(main)
 endfor
 
 for class
-    resolve_scope (class)
+    resolve_scope(class)
     class.selftest ?= 1
 endfor
 
 for constant
-    resolve_scope (constant)
+    resolve_scope(constant)
 endfor
 
 for header
-    resolve_scope (header)
+    resolve_scope(header)
 endfor
 
 #   All projects with classes contain a selftest main
-if count (project.class)
+if count(project.class)
     new main to project
         main.name = "$(prefix)_selftest"
         main.test = 1
