@@ -643,7 +643,7 @@ DISTCHECK_CONFIGURE_FLAGS = \\
 ACLOCAL_AMFLAGS = -I config
 
 AM_CFLAGS = \\
-    -Werror=format-security
+    -Werror=format-security $\(shell sdl2-config --flags)
 
 .if project.use_cxx
 AM_CXXFLAGS = \\

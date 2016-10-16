@@ -31,7 +31,7 @@ MAINGAME = $(project.name)$\(EXE)
 
 OBJS =\
 .for class
- $(name:c).o\
+ $(path).o\
 .endfor
 
 %.o: $\(PREFIX)/src/%.c

@@ -143,7 +143,7 @@ void
 @end
 */
 
-#include "$(project.prefix)_classes.h"
+#include "$(class.up_path)$(project.prefix)_classes.h"
 
 //  Structure of our class
 
@@ -168,9 +168,9 @@ $(class.c_name)_new(void)
     //  Initialize class properties here
 .if defined(class.parent)
 	$(class.parent_type)* parent = $(class.parent_type)_new();
-	
+
 	assert(parent)
-	
+
 	self->$(class.parent) = parent;
 .endif
     return self;
@@ -188,8 +188,7 @@ $(class.c_name)_destroy($(class.c_name) **self_p)
         $(class.c_name) *self = *self_p;
         //  Free class properties here
 .if defined(class.parent)
-
-	$(class.parent_type)_destroy(&(self->$(class.parent)));	
+	$(class.parent_type)_destroy(&(self->$(class.parent)));
 	self->$(class.parent) = NULL;
 .endif
 
@@ -211,7 +210,7 @@ $(class.c_name)_test (bool verbose)
     //  @selftest
     //  Simple create/destroy test
     $(class.c_name) *self = $(class.c_name)_new();
-    assert (self);
+    jassert(self);
     $(class.c_name)_destroy(&self);
     //  @end
     puts("OK!\\n");

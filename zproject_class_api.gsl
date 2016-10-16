@@ -9,6 +9,39 @@
 #   This Source Code Form is subject to the terms of the Mozilla Public
 #   License, v. 2.0. If a copy of the MPL was not distributed with this
 #   file, You can obtain one at http://mozilla.org/MPL/2.0/.
+for project.class
+    class.private ?= "0"
+    if defined (class.api)
+        if !file.exists (class.api)
+            echo "Could not read API file '$(class.api)' for '$(class.name)'"
+            class.api = # undefined
+        endif
+    else
+        if file.exists ("api/$(class.name:c).api")
+            class.api = "api/$(class.name:c).api"
+        elsif file.exists ("api/$(class.name:c).xml")
+            class.api = "api/$(class.name:c).xml"
+        endif
+    endif
+endfor
+
+# Replace each class item with the class model from its API file (if any)
+for project.class where defined (class.api)
+    new_class = XML.load_file (class.api)?
+    if !defined (new_class)
+        echo "Error loading api file: $(class.api): $(xml.error?)"
+        class.api = # undefined
+    else
+        new_class.api = class.api
+        new_class.api_dir = directory.resolve ('api/')
+        new_class.private = class.private
+        new_class.scope = class.scope
+        new_class.state = class.state? new_class.state?
+        new_class.selftest ?= 1
+        move new_class after class
+        delete class
+    endif
+endfor
 
 #
 # Set the API state and draft attribute of an element
@@ -523,16 +556,17 @@ endfor
 
 for project.class
     if scope = "private"
-        class.header = "src/$(class.name:c).h"
+        class.header = "src/$(class.path).h"
     else
-        class.header = "include/$(class.name:c).h"
+        class.header = "include/$(class.path).h"
     endif
     if project.use_cxx
-        class.source = "src/$(class.name:c).cc"
+        class.source = "src/$(class.path).cc"
     else
-        class.source = "src/$(class.name:c).c"
+        class.source = "src/$(class.path).c"
     endif
-
+    
+    echo class.source
     if defined (class.api)
         resolve_c_class (class)
     else

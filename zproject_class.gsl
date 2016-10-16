@@ -302,6 +302,8 @@ $(project.GENERATED_WARNING_HEADER:)
 //  *** Deprecated method, slated for removal: avoid using it ***
 .       endif
 .endmacro
+
+
 .macro generate_interface (draft)
 .   for class.constant where draft = my.draft
 #define $(CLASS.NAME:c)_$(NAME:c) $(value)  // $(constant.description:no,block)

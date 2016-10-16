@@ -56,11 +56,14 @@ function assemble_classes(item, depth)
         my.current = my.depth
         my.string = ""
         my.dir = ""
+        my.indir = ""
         my.parent = ""
+        
         while my.current >= 0
             if defined($(-my.current).prefix) & $(-my.current).prefix = "true"
                 my.string = project.prefix + "_"
                 my.dir = ""
+                my.indir = ""
             else
                 if my.current = 0 & defined(parent)
                     my.parent = my.string + parent
@@ -70,6 +73,7 @@ function assemble_classes(item, depth)
                 my.dir +=  $(-my.current).name
                 
                 if my.current > 0
+                    my.indir += $(-my.current).name + "/"
                     my.dir += "/"
                     my.string += "_"
                 endif
@@ -77,14 +81,30 @@ function assemble_classes(item, depth)
             
             my.current -= 1
         endwhile
+        
         new class to project
-             class.path = my.dir
-             class.name = my.string
-             c_name = "$(class.name:c)"
-             if defined(parent)
+            class.path = my.dir
+            
+            my.count = string.countch("/", my.intdir)
+            while my.count > 0
+                my.uppath += "../"
+            endwhile
+            class.up_path = my.uppath
+            class.name = my.string
+            c_name = "$(class.name:c)"
+
+            if !file.exists("src/" + my.indir)
+                echo "Creating src/" + my.indir
+                directory.create("src/" + my.indir)
+            endif
+            if !file.exists("include/" + my.indir)
+                echo "Creating include/" + my.indir
+                directory.create("include/" + my.indir)
+            endif
+            if defined(parent)
                 class.parent_type = my.parent
                 class.parent = parent
-             endif
+            endif
         endnew  
     endfor 
     for my.item.namespace
@@ -117,9 +137,11 @@ project->license. ?= "Copyright (c) the Authors"
 
 project.has_main = (count(main) > 0)
 
-for project
-    assemble_classes(project, 0)
-endfor 
+assemble_classes(project, 0)
+for class
+    echo class.name
+endfor
+
 
 project.exports_classes = (count(class, !defined(class.private)) > 0)
 project.generated_warning_header ?= "\
@@ -216,9 +238,9 @@ gsl from "zproject_class_api.gsl"
 gsl from "zproject_class.gsl"
 
 #   Always run these, in any order
-gsl from "zproject_bench.gsl"
+#gsl from "zproject_bench.gsl"
 gsl from "zproject_git.gsl"
-gsl from "zproject_valgrind.gsl"
+#gsl from "zproject_valgrind.gsl"
 
 #   Load all targets
 #gsl from "zproject_android.gsl"
@@ -241,7 +263,7 @@ gsl from "zproject_mingw32.gsl"
 #gsl from "zproject_redhat.gsl"
 #gsl from "zproject_rpi.gsl"
 #gsl from "zproject_ruby.gsl"
-gsl from "zproject_travis.gsl"
+#gsl from "zproject_travis.gsl"
 #gsl from "zproject_vagrant.gsl"
 #gsl from "zproject_vs2008.gsl"
 #gsl from "zproject_vs20xx.gsl"
@@ -251,8 +273,8 @@ gsl from "zproject_travis.gsl"
 if defined (switches.target)
     build_target (switches.target)
 else
-    assume_target ("autotools")
-    assume_target ("cmake")
+    #assume_target ("autotools")
+    #assume_target ("cmake")
     for project.target
         build_target (target.name)
     endfor
