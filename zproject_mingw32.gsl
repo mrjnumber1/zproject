@@ -23,8 +23,8 @@ CORE_PCH=$\(PREFIX)/include/$(project.header)
 CORE_PCH_GCH = $\(CORE_PCH).gch
 INCDIR=-I$\(PREFIX)/include -I.
 LIBDIR=-L$\(PREFIX)/lib
-CFLAGS= -gcc --std=gnu11 -v -Wall -Werror -Wfatal-errors -pedantic -g $\(INCDIR) $\(shell sdl2-config --flags)
-LDFLAGS= $\(shell sdl2-config -- libs) 
+CFLAGS= -gcc -std=gnu11 -v -Wall -Werror -Wfatal-errors -pedantic -g $\(INCDIR) $\(shell sdl2-config --flags)
+LDFLAGS= $\(shell sdl2-config --libs) 
 EXE=.exe
 SELFTESTER = $(project.prefix)_selftest$\(EXE)
 MAINGAME = $(project.name)$\(EXE)
@@ -44,16 +44,15 @@ $\(MAINGAME): $\(OBJS)
 
 pch: $\(CORE_PCH_GCH)
 
-
 $\(CORE_PCH_GCH): 
 	$\(CC) $\(CFLAGS) -x c-header $\(CORE_PCH)
-
 
 $\(SELFTESTER): $(project.prefix)_selftest.o $\(OBJS)
 	$\(CC) $\(LDFLAGS) -o $@ $^ $\(LIBDIR) 
 
 clean:
-	$\(RM) *.o *$\(EXE)
-
+	$\(RM) $\(SELFTESTER)
+	$\(RM) $\(OBJS)
+	
 $(project.GENERATED_WARNING_HEADER:)
 .endmacro
