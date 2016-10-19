@@ -84,8 +84,8 @@ function assemble_classes(item, depth)
         
         new class to project
             class.path = my.dir
-            
-            my.count = string.countch("/", my.intdir)
+            my.uppath = ""
+            my.count = string.cntch("/", my.indir)
             while my.count > 0
                 my.uppath += "../"
             endwhile
@@ -138,10 +138,6 @@ project->license. ?= "Copyright (c) the Authors"
 project.has_main = (count(main) > 0)
 
 assemble_classes(project, 0)
-for class
-    echo class.name
-endfor
-
 
 project.exports_classes = (count(class, !defined(class.private)) > 0)
 project.generated_warning_header ?= "\
@@ -263,7 +259,7 @@ gsl from "zproject_mingw32.gsl"
 #gsl from "zproject_redhat.gsl"
 #gsl from "zproject_rpi.gsl"
 #gsl from "zproject_ruby.gsl"
-#gsl from "zproject_travis.gsl"
+gsl from "zproject_travis.gsl"
 #gsl from "zproject_vagrant.gsl"
 #gsl from "zproject_vs2008.gsl"
 #gsl from "zproject_vs20xx.gsl"
@@ -273,8 +269,8 @@ gsl from "zproject_mingw32.gsl"
 if defined (switches.target)
     build_target (switches.target)
 else
-    #assume_target ("autotools")
-    #assume_target ("cmake")
+    assume_target ("autotools")
+    assume_target ("cmake")
     for project.target
         build_target (target.name)
     endfor

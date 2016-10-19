@@ -169,7 +169,7 @@ $(class.c_name)_new(void)
 .if defined(class.parent)
 	$(class.parent_type)* parent = $(class.parent_type)_new();
 
-	assert(parent)
+	assert(parent);
 
 	self->$(class.parent) = parent;
 .endif

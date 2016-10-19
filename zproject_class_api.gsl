@@ -566,7 +566,6 @@ for project.class
         class.source = "src/$(class.path).c"
     endif
     
-    echo class.source
     if defined (class.api)
         resolve_c_class (class)
     else

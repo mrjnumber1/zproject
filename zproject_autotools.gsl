@@ -643,8 +643,9 @@ DISTCHECK_CONFIGURE_FLAGS = \\
 ACLOCAL_AMFLAGS = -I config
 
 AM_CFLAGS = \\
-    -Werror=format-security $\(shell sdl2-config --flags)
-
+    -std=c11 -Werror=format-security $\(shell sdl2-config --cflags)
+AM_LDFLAGS = \\
+	$\(shell sdl2-config --libs) -lSDL2_mixer -lSDL2_ttf -lSDL2_image
 .if project.use_cxx
 AM_CXXFLAGS = \\
     -Werror=format-security \\
@@ -684,7 +685,7 @@ EXTRA_DIST = \\
     src/$(extra.name) \\
 .endfor
 .for class where scope = "private"
-    src/$(name:c).h \\
+    src/$(path).h \\
 .endfor
 .if file.exists ("LICENSE")
     LICENSE \\
@@ -741,7 +742,7 @@ include_HEADERS = \\
     include/$(name:c).h \\
 .endfor
 .for class where scope = "public" & !draft
-    include/$(name:c).h \\
+    include/$(path).h \\
 .endfor
     include/$(project.prefix)_library.h
 
@@ -749,16 +750,16 @@ include_HEADERS = \\
 if ENABLE_DRAFTS
 include_HEADERS += \\
 .   for class where scope = "public" & draft
-    include/$(name:c).h$(last ()?? "\n"? " \\")
+    include/$(path).h$(last ()?? "\n"? " \\")
 .   endfor
 endif
 .endif
 src_$(project.libname)_la_SOURCES = \\
 .for class where !draft
-.   if file.exists ("src/$(name:c).cc")
-    src/$(name:c).cc \\
+.   if file.exists ("src/$(path).cc")
+    src/$(path).cc \\
 .   else
-    src/$(name:c).c \\
+    src/$(path).c \\
 .   endif
 .endfor
 .for extra
@@ -770,10 +771,10 @@ src_$(project.libname)_la_SOURCES = \\
 if ENABLE_DRAFTS
 src_$(project.libname)_la_SOURCES += \\
 .   for class where draft
-.       if file.exists ("src/$(name:c).cc")
-    src/$(name:c).cc$(last ()?? "\n"? " \\")
+.       if file.exists ("src/$(path).cc")
+    src/$(path).cc$(last ()?? "\n"? " \\")
 .       else
-    src/$(name:c).c$(last ()?? "\n"? " \\")
+    src/$(path).c$(last ()?? "\n"? " \\")
 .       endif
 .   endfor
 endif
